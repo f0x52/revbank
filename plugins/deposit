@@ -26,6 +26,8 @@ sub amount :Tab(13.37,42) {
     $amount = parse_amount($amount)
         or return REJECT, "Invalid amount";
 
+    return REJECT, "Please deposit an amount that doesn't conflict with membership fees" if $amount eq 13.37 or $amount eq 19.84 or $amount eq 25;
+
     $cart->add(undef, +$amount, "Deposit", { is_deposit => 1 });
 
     return ACCEPT;
